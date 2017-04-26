@@ -6,33 +6,18 @@
 (def db-url "datomic:free://127.0.0.1:4334/omn-dev")
 
 (def schema
-  [{:db/doc "Car make."
-    :db/ident :car/make
+  [{:db/doc "username"
+    :db/ident :user/name
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db.install/_attribute :db.part/db}
-   {:db/doc "Car model."
-    :db/ident :model
+   {:db/doc "password"
+    :db/ident :user/password
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}
-   {:db/doc "Make models."
-    :db/ident :make/models
-    :db/valueType :db.type/ref
-    :db/cardinality :db.cardinality/many
     :db.install/_attribute :db.part/db}])
 
-(def test-data
-  [{:model "Tacoma" :db/id "tac"}
-   {:model "Tercel" :db/id "ter"}
-   {:model "325xi" :db/id "325"}
-   {:model "X5" :db/id "x5"}
-   {:car/make "Toyota"
-    :make/models [{:db/id "tac"}
-                  {:db/id "ter"}]}
-   {:car/make "BMW"
-    :make/models [{:db/id "325"}
-                  {:db/id "x5"}]}])
+(def test-data [{:user/name "fenton" :user/password "passwErd"}])
 
 (defn reload-dbs
   ([]
@@ -45,13 +30,22 @@
 
 (defn db [] (-> db-url d/connect d/db))
 
-(defn q [make pull-pattern db]
-  (first (d/q
-          '[:find [(pull ?e ppat) ...]
-            :in $ ?make ppat
-            :where
-            [?e :car/make ?make]]
-          db
-          make pull-pattern)))
+(defn valid-user
+  [db username password]
+  (= 1
+     (count
+      (d/q
+       '{:find [(pull ?e [:user/name])]
+         :in [$ ?username ?password]
+         :where [[?e :user/name ?username]
+                 [?e :user/password ?password]]}
+       db username password))))
 
-(q "Toyota" [:car/make {:make/models [:model]}] (db))
+
+
+
+
+
+
+
+

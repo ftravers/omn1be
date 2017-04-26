@@ -7,6 +7,7 @@
                  [com.datomic/datomic-free "0.9.5561" :exclusions [joda-time org.slf4j/slf4j-nop]]
                  [org.clojure/core.async "0.2.395"]
                  [com.taoensso/timbre "4.8.0"]
+                 [org.omcljs/om "1.0.0-alpha48-SNAPSHOT"]
                  [fentontravers/websocket-server "0.4.6"]]
   :source-paths ["src"]
   :clean-targets ^{:protect false} ["target"]
