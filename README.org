@@ -1,0 +1,6 @@
+* TODO Login is not a mutate, convert into a query.
+
+Maybe leave as mutate?  Well I'll try running the parser by hand see
+if that works too???
+
+<2017-05-02 Tue>
