@@ -10,10 +10,9 @@
 
 (def sample-msg {:email "fenton.travers@gmail.com"
                  :query [:user/email :user/age #:user{:cars [:id :car/make :car/model :year]}]})
-
+ 
 (defn req-hndlr-datomic [channel data]
-  (println "hhhhhehllo")
-  (println data)
+  (debug "data: " data)
   (->> data
        read-string
        prn-str
@@ -22,7 +21,6 @@
 (defn start []
   "Demonstrate how to use the websocket server library."
   (let [port 7890]
-    (println "ehllo")
     (reset! ws-server (start-ws-server port req-hndlr-datomic))))
 
 (defn stop [] "Stop websocket server" (@ws-server))
