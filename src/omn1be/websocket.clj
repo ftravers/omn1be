@@ -16,6 +16,7 @@
   (->> data
        read-string
        prn-str
+       str/upper-case
        (send! channel)))
 
 (defn start []
