@@ -13,12 +13,12 @@
     {:novelty {:valid-user (core/valid-user (core/db) user pass)}}))
 
 (defmethod api :user/authenticated
-  [args]
-  (let [{{user :user/name pass :user/password} :params} args]
-    (debug "username" user "password" pass "db" (core/db))
-    (if user
-      (core/valid-user (core/db) user pass)
-      false)))
+  [{{user :user/name pass :user/password token :user/token} :params}]
+  (debug "username" user "password" pass "db" (core/db))
+  (cond
+    user (core/valid-user (core/db) user pass)
+    token true                          ; TODO: handle token
+    :default false))
 
 (defmulti mutate om/dispatch)
 (defmulti reader om/dispatch)
