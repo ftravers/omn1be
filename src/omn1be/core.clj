@@ -41,11 +41,10 @@
                  [?e :user/password ?password]]}
        db username password))))
 
+(def person {:name "Fenton"
+             :age 20})
 
-
-
-
-
-
-
-
+(defn of-age [person country]
+  (case country
+    "USA" (>= (:age person) 21)
+    "Canada" (>= (:age person) 19)))

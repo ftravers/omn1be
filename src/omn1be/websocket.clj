@@ -8,16 +8,20 @@
 
 (defonce ws-server (atom nil))
 
-(def sample-msg {:email "fenton.travers@gmail.com"
-                 :query [:user/email :user/age #:user{:cars [:id :car/make :car/model :year]}]})
- 
-(defn req-hndlr-datomic [channel data]
-  (debug "data: " data)
+(comment
+  (process-data "[(user/login {:username \"fenton\", :password \"passwErd\"})]"))
+
+(defn process-data [data]
+  
   (->> data
        read-string
+       (router/parser {:database (be/db)})
        prn-str
-       str/upper-case
-       (send! channel)))
+       ))
+
+(defn req-hndlr-datomic [channel data]
+  (debug "data: " data)
+  (send! channel (process-data data)))
 
 (defn start []
   "Demonstrate how to use the websocket server library."
