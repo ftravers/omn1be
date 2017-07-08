@@ -12,7 +12,6 @@
   (process-data "[(user/login {:username \"fenton\", :password \"passwErd\"})]"))
 
 (defn process-data [data]
-  
   (->> data
        read-string
        (router/parser {:database (be/db)})
