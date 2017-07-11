@@ -24,10 +24,5 @@
     (debug "RESPONSE: " resp)
     resp))
 
-(defmethod reader :default
-  [env kee params]
-  (debug "ENV: " env ", KEY: " kee ", PARAMS: " params)
-  {:value {:some "value"}})
-
 (def parser (om/parser {:read reader}))
 
