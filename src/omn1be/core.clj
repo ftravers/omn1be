@@ -15,11 +15,9 @@
 
 (defn reader
   [env kee params]
-  (debug "ENV: " env ", KEY: " kee ", PARAMS: " params)
   (let [userz (:state env)
         username (:user/name params)
         password (:user/password params)]
     {:value (valid-user userz username password)}))
 
 (def parser (om/parser {:read reader}))
-
