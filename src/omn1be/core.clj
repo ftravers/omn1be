@@ -1,7 +1,5 @@
 (ns omn1be.core
-  (:require
-   [om.next.server :as om]
-   [taoensso.timbre :refer [debug warn]]))
+  (:require [om.next.server :as om]))
 
 (def users [{:user/name "bob" :user/password "abc123"}
             {:user/name "fenton" :user/password "passwErd"}])
